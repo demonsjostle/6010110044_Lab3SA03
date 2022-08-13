@@ -30,6 +30,7 @@ export default function WordCard(props) {
             if (guess === state.word) {
                 console.log('yeah!')
                 setState({ ...state, guess: '', completed: true })
+                setScore(score + 1)
             } else {
                 console.log('reset')
                 setState({ ...state, guess: '', attempt: state.attempt + 1 })
@@ -43,6 +44,7 @@ export default function WordCard(props) {
         <div>
             {state.chars.map((c, i) => <CharacterCard value={c} key={i} activationHandler={activationHandler} attempt={state.attempt} completed={state.completed} />)}
             <h1>Score: {score}</h1>
+            <button>Play again</button>
         </div>
     )
 }
