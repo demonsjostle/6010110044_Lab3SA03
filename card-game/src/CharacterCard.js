@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 export default function CharacterCard(props) {
     const [active, setActive] = useState(false);
+
     const attemptRef = useRef(props.attempt)
     const activate = () => {
         if (!active) {
@@ -15,13 +16,12 @@ export default function CharacterCard(props) {
             setActive(false);
             attemptRef.current = props.attempt
         }
-        if (props.completed) {
 
-        }
+
     })
-    const className = `card ${active ? 'activeCard' : ''}`
+
     return (
-        <div className={className} onClick={activate}>{props.value}</div>
+        <div className={`card ${active ? 'activeCard' : ''} ${props.completed ? 'completedCard' : ''} `} onClick={activate} > {props.value}</div >
     )
 }
 
