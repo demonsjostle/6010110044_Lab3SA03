@@ -49,3 +49,7 @@
     color: red;
     background: pink;
 }
+.completedCard {
+    color: white;
+    background: green;
+}
