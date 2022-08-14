@@ -3,6 +3,7 @@ export default function CharacterCard(props) {
     const [active, setActive] = useState(false);
 
     const attemptRef = useRef(props.attempt)
+    const completedRef = useRef(true)
     const activate = () => {
         if (!active) {
             setActive(true)
@@ -18,7 +19,13 @@ export default function CharacterCard(props) {
         }
 
 
+
     })
+    useEffect(() => {
+        if (props.resetGame) {
+            setActive(false)
+        }
+    }, active)
 
     return (
         <div className={`card ${active ? 'activeCard' : ''} ${props.completed ? 'completedCard' : ''} `} onClick={activate} > {props.value}</div >

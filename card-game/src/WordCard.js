@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import _ from 'lodash'
 import CharacterCard from './CharacterCard'
 
 
 const prepareStateFromWord = (given_word) => {
-    let word = given_word.toUpperCase()
+    let random_word = _.shuffle(given_word)[0]
+    let word = random_word.toUpperCase()
     let chars = _.shuffle(Array.from(word))
     return {
         word,
@@ -19,6 +20,8 @@ const prepareStateFromWord = (given_word) => {
 export default function WordCard(props) {
     const [state, setState] = useState(prepareStateFromWord(props.value))
     const [score, setScore] = useState(0)
+    const [active, setActive] = useState(false)
+    const [resetGame, setResetGame] = useState(false)
 
     const activationHandler = c => {
         console.log(`${c} has been activated.`)
@@ -39,12 +42,20 @@ export default function WordCard(props) {
 
     }
 
+    const handlePlaygame = () => {
+        setState(prepareStateFromWord(props.value))
+        setActive(true)
+        setResetGame(true)
+
+    }
+
+
 
     return (
         <div>
-            {state.chars.map((c, i) => <CharacterCard value={c} key={i} activationHandler={activationHandler} attempt={state.attempt} completed={state.completed} />)}
+            {state.chars.map((c, i) => <CharacterCard value={c} key={i} activationHandler={activationHandler} attempt={state.attempt} completed={state.completed} resetGame={resetGame} />)}
             <h1>Score: {score}</h1>
-            <button>Play again</button>
+            <button onClick={handlePlaygame}>Play again</button>
         </div>
     )
 }
